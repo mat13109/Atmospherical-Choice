@@ -7,3 +7,6 @@ I tried to get at best the "To The Next World" feel from the original game on th
 
 ## My online portfolio
 Find my other projects : http://mathis-abdou.space/
+## Inspiration
+This project has been inspired by the first video of the YouTube channel [Mix and Jam](https://youtu.be/sCK4u5ol3xw). It is an experimental game development channel, where they study things from the game industry and try their best to study and even recreate them!
+
