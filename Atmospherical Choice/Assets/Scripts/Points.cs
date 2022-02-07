@@ -1,27 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Controls the OnHover effect
+/// </summary>
 public class Points : MonoBehaviour
 {
-    [SerializeField] GameObject animatedStuffWhenSelected;
-    [SerializeField] int myNumber;
+    /// <summary>
+    /// The particle system that animates the hover effect
+    /// </summary>
+    [Tooltip("The particle system that animates the hover effect")]
+    [SerializeField] private GameObject _onHoverParticleSystem;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    /// <summary>
+    /// Local index to compare against GameManagers's index
+    /// </summary>
+    [Tooltip("Local index to compare against GameManagers's index")]
+    [SerializeField] private int _index;
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Unity Update
+    /// </summary>
+    private void Update()
     {
-        if (CameraControl.index == myNumber)
+        if (GameManager.s_Index == _index)
         {
-            animatedStuffWhenSelected.SetActive(true);
-        } else
+            _onHoverParticleSystem.SetActive(true);
+        } 
+        else
         {
-            animatedStuffWhenSelected.SetActive(false);
+            _onHoverParticleSystem.SetActive(false);
         }
     }
 }

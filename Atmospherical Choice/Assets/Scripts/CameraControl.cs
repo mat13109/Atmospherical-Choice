@@ -1,52 +1,68 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
+/// <summary>
+/// Controls the camera systems
+/// </summary>
 public class CameraControl : MonoBehaviour
 {
-    public static int index = 3;
+    /// <summary>
+    /// GameManager reference
+    /// </summary>
+    private GameManager _gameManager;
 
-    GameManager GM;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Unity Start
+    /// </summary>
+    private void Start()
     {
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Unity Update
+    /// </summary>
+    private void Update()
     {
-        if (Input.GetKeyDown("right") && GameManager.hasstarted)
+        if (!GameManager.s_IsPlaying)
         {
-            if (index == GM.kingdoms.Count - 1)
+            return;
+        }
+
+        if (Input.GetKeyDown("right"))
+        {
+            if (GameManager.s_Index == _gameManager.KingdomsTransforms.Count - 1)
             {
-                index = 0;
-            } else
+                // Loop ?
+                //GameManager.s_Index = 0;
+            } 
+            else
             {
-                ++index;
+                ++GameManager.s_Index;
             }
         }
-        if (Input.GetKeyDown("left") && GameManager.hasstarted)
+        if (Input.GetKeyDown("left"))
         {
-            if (index == 0)
+            if (GameManager.s_Index == 0)
             {
-                index = GM.kingdoms.Count - 1;
+                // Loop ?
+                //GameManager.s_Index = _gameManager.KingdomsTransforms.Count - 1;
             }
             else
             {
-                --index;
+                --GameManager.s_Index;
             }
         }
 
-        //this.transform.rotation = GM.kingdoms[index].transform.rotation;
-
-        this.transform.DOLocalRotate(GM.kingdoms[index].eulerAngles, 1);
+        transform.DOLocalRotate(_gameManager.KingdomsTransforms[GameManager.s_Index].eulerAngles, 1);
     }
 
-    public void DeactivateTheAnimation (){
+    /// <summary>
+    /// Called via the animator, at the end of the "go in" animation
+    /// </summary>
+    public void DeactivateTheAnimation ()
+    {
         GetComponent<Animator>().enabled = false;
-        GameManager.hasstarted = true;
+        GameManager.s_IsPlaying = true;
     }
 }

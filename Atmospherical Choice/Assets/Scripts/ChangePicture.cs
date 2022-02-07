@@ -1,27 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
+/// <summary>
+/// Toggles a picture on or off
+/// </summary>
 public class ChangePicture : MonoBehaviour
 {
-    [SerializeField] int myNumber;
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Local index to compare against GameManagers's index
+    /// </summary>
+    [Tooltip("Local index to compare against GameManagers's index")]
+    [SerializeField] int _index;
+
+    /// <summary>
+    /// Animator reference
+    /// </summary>
+    private Animator _animator;
+
+    /// <summary>
+    /// Unity Start
+    /// </summary>
+    private void Start()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Unity Update
+    /// </summary>
+    private void Update()
     {
-        if (CameraControl.index == myNumber)
+        if (GameManager.s_Index == _index)
         {
-            GetComponent<Animator>().SetBool("isselected", true);
-        } else
+            _animator.SetBool("isSelected", true);
+        } 
+        else
         {
-            GetComponent<Animator>().SetBool("isselected", false);
+            _animator.SetBool("isSelected", false);
         }
-        
     }
 }
